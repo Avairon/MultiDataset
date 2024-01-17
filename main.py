@@ -41,8 +41,11 @@ if __name__ == "__main__":
 
     db.APP_COMP_TYPE.where(db.APP_COMP_TYPE.str.replace(' ','').str.isalpha(), np.nan, inplace=True) 
 
-    print(db)
+    #dupcol = db.columns[db.columns.duplicated()]
+    db = db.T.drop_duplicates().T
+    
+    # db_out = db.loc[:,~db.columns.duplicated()] # удаляем дубликаты 115 cols
 
-    #db = db.loc[:,~db.columns.duplicated()].copy() # удаляем дубликаты 115 cols
+    print(db)
 
     #db = pd.concat(dbraw, ignore_index=True)
