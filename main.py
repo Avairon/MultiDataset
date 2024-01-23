@@ -42,8 +42,10 @@ if __name__ == "__main__":
     db.APP_COMP_TYPE.where(db.APP_COMP_TYPE.str.replace(' ','').str.isalpha(), np.nan, inplace=True) 
 
     #dupcol = db.columns[db.columns.duplicated()]
-    db = db.T.drop_duplicates().T
-    
+    dbTrans = db.T
+    dbTrans = dbTrans.drop_duplicates()
+    db = dbTrans.T
+
     # db_out = db.loc[:,~db.columns.duplicated()] # удаляем дубликаты 115 cols
 
     print(db)
