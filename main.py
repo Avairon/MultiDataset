@@ -40,14 +40,20 @@ if __name__ == "__main__":
     db.drop_duplicates()
 
     db.APP_COMP_TYPE.where(db.APP_COMP_TYPE.str.replace(' ','').str.isalpha(), np.nan, inplace=True) 
+    db.APP_COMP_TYPE = db.APP_COMP_TYPE.str.lower()
 
-    #dupcol = db.columns[db.columns.duplicated()]
+    print(list(db.APP_COMP_TYPE.unique()))
     dbTrans = db.T
     dbTrans = dbTrans.drop_duplicates()
     db = dbTrans.T
 
-    # db_out = db.loc[:,~db.columns.duplicated()] # удаляем дубликаты 115 cols
+    db = db.sort_values('ID') #
 
-    print(db)
+    print(db.head(10))
 
-    #db = pd.concat(dbraw, ignore_index=True)
+    print("Rows: " + str(db.shape[0]) + " Cols: " + str(db.shape[1]))
+
+    print(db['CLNT_TRUST_RELATION'].unique)
+    print(db['APP_MARITAL_STATUS'].unique)
+    print(db['CLNT_JOB_POSITION'].unique)
+    
